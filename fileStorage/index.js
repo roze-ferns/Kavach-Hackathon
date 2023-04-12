@@ -22,6 +22,12 @@ var storage = multer.diskStorage({
             // Default to using original name if MIME type is not recognized
             fileType = "file";
         }
+        // Remove existing file(s) with the same type (photo or video)
+        const existingFiles = fs.readdirSync(uploadsFolderPath).filter(fileName => fileName.startsWith(fileType));
+        existingFiles.forEach(existingFile => {
+            const existingFilePath = path.join(uploadsFolderPath, existingFile);
+            fs.unlinkSync(existingFilePath);
+        });
         // Use the original name of the file and add the file type as prefix to the filename
         cb(null, fileType + path.extname(file.originalname));
     }
