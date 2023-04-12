@@ -47,7 +47,7 @@ app.post('/uploads', emptyUploadsFolder, (req, res) => {
   res.redirect("/");
 });
 
-// Function to remove all files in the "uploads" folder
+// Function to remove all files in the "uploads" folder, except for "dummy.txt"
 function emptyUploadsFolder(req, res, next) {
   // Read the contents of the "uploads" folder
   fs.readdir(uploadsFolderPath, (err, files) => {
@@ -56,16 +56,19 @@ function emptyUploadsFolder(req, res, next) {
       return;
     }
 
-    // Loop through the files and remove them one by one
+    // Loop through the files and remove them one by one, except for "dummy.txt"
     files.forEach(file => {
-      const filePath = path.join(uploadsFolderPath, file);
-      fs.unlinkSync(filePath); // Synchronously remove the file
+      if (file !== "dummy.txt") { // Skip "dummy.txt" file
+        const filePath = path.join(uploadsFolderPath, file);
+        fs.unlinkSync(filePath); // Synchronously remove the file
+      }
     });
 
-    console.log('All files in "uploads" folder have been removed.');
+    console.log('All files in "uploads" folder, except for "dummy.txt", have been removed.');
   });
   next();
 }
+
 
 // Call the function to remove all files in the "uploads" folder
 
