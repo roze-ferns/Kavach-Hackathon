@@ -1,0 +1,13 @@
+<!-- Update the HTML form to specify the 'accept' attribute for each input element -->
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="imageFile">Image Only:</label>
+    <input type="file" name="avatar" accept="image/*" id="imageFile" placeholder="Image only"> <!-- Accepts only image files -->
+    <label for="videoFile">Video Only:</label>
+    <input type="file" name="avatar" accept="video/*" id="videoFile" placeholder="Video only"> <!-- Accepts only video files -->
+    <input type="submit" value="Upload">
+  </form>
+  
+  <form action="/uploads" method="post">
+    <input type="submit" value="Delete">
+  </form>
+  
