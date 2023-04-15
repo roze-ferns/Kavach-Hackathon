@@ -1,9 +1,13 @@
 import React from "react";
 import "./login.css";
 import {useState} from "react";
+
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 // import ErrorMessage from "./ErrorMesssge";
 function LogIn() {
+    const nav = useNavigate();
+    const login_res = false;
     const [username,setusername] = useState("")
     const[password,setPassword] = useState("")
     const[error,setError] = useState(false)
@@ -27,12 +31,16 @@ function LogIn() {
 console.log(data)
 localStorage.setItem('userInfo',JSON.stringify(data))
 setLoading(false)
+nav("/home")
+login_res = true;
     }
     catch(error)
     {
         setError(error.response.data.message)
         setLoading(false)
         alert("Invalid credentials")
+      setPassword('')
+      setusername('')
     }
  
 }

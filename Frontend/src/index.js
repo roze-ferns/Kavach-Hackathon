@@ -13,8 +13,8 @@ const WebPages = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LogIn />} />
+        <Route path="/" element={<LogIn />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/facerecognition" element={<FaceR />} />
         <Route path="/automatic-number-plate-recognition" element={<ANPR />} />
         {/* <Route path="/PGCountryNames/:name" element={<PostGraduationCountry />} /> */}

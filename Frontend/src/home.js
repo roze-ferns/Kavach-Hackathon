@@ -10,8 +10,11 @@ import F_logo4 from './image/F_logo4.jpg'
 import Navigation from "./navigation.js";
 import { Link } from "react-router-dom";
 import Footer from "./footer.js";
-
+import { useNavigate } from "react-router-dom";
+import login from "./login.js";
 function Home() {
+    const nav = useNavigate();
+    
     return (
         <div>
             <div className="bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500">

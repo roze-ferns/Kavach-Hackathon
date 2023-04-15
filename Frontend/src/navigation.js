@@ -12,7 +12,7 @@ function Navigation() {
                     <div className="flex list-none m-auto space-x-32">
                         <li className='text-black p-2 font-semibold hover:bg-blue-500 hover:text-white rounded-lg'>Documentation</li>
                         <li className='text-black p-2 font-semibold hover:bg-blue-500 hover:text-white rounded-lg'>Contact</li>
-                        <Link to={`/login`} className='text-black p-2 font-semibold hover:bg-blue-500 hover:text-white rounded-lg'>Log In</Link>
+                        <Link to={`/`} className='text-black p-2 font-semibold hover:bg-blue-500 hover:text-white rounded-lg'>Log Out</Link>
                     </div>
                     <img src="https://static.thenounproject.com/png/7792-200.png" className="h-14 pr-4 pt-3" alt=""></img>
                 </nav >

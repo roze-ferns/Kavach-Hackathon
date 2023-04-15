@@ -7,6 +7,19 @@ var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = 'Harryisagoodb$oy';
+//ROUTE 1:Entering user credentials
+router.post("/register", function(req, res){
+    const newUser = new User({
+       username: req.body.username,
+        password: req.body.password
+    });
+
+    newUser.save().then(()=>{
+        res.send("secrets");
+    }).catch((err)=>{
+        console.log(err);
+    })
+});
 
 
 // ROUTE 2: Authenticate a User using: POST "/api/auth/login". No login required
@@ -23,17 +36,17 @@ router.post('/login', [
 
   const { username, password } = req.body;
   try {
-    let user = await User.findOne({ username });
+    let user = await User.findOne({ username,password });
     if (!user) {
       success = false
       return res.status(400).json({ error: "Please try to login with correct credentials" });
     }
 
-    const passwordCompare = await bcrypt.compare(password, user.password);
-    if (!passwordCompare) {
-      success = false
-      return res.status(400).json({ success, error: "Please try to login with correct credentials" });
-    }
+    // const passwordCompare = await bcrypt.compare(password, user.password);
+    // if (!passwordCompare) {
+    //   success = false
+    //   return res.status(400).json({ success, error: "Please try to login with correct credentials" });
+    // }
    
     const data = {
       user: {

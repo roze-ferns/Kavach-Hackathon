@@ -4,6 +4,7 @@ import Navigation from "./navigation.js";
 import Footer from "./footer";
 
 function FaceR() {
+     
     return (
         <>
         <Navigation />
