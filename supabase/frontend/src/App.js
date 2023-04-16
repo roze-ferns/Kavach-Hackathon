@@ -5,19 +5,17 @@ import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 
 const supabase = createClient(
-  "https://jofthzzekjrhlnjcpyvf.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvZnRoenpla2pyaGxuamNweXZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE1NTY3MTAsImV4cCI6MTk5NzEzMjcxMH0.kAGRFktVBfq9xlIzwUUi3DrG2U9WSEq0Hm6quLk1Em0"
+  "https://wyyqwnmpcqwfcsyyuujw.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5eXF3bm1wY3F3ZmNzeXl1dWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2Mzc5NTEsImV4cCI6MTk5NzIxMzk1MX0.RpGahYaiVjG5Js8LeQmHcO0RjdnMJLxGXdi4fVdAac0"
 );
 
-// const CDNURL =
-//   "https://jofthzzekjrhlnjcpyvf.supabase.co/storage/v1/object/public/videos";
+const CDNURL =
+  "https://wyyqwnmpcqwfcsyyuujw.supabase.co/storage/v1/object/public";
 
-const imageCDNURL =
-  "https://jofthzzekjrhlnjcpyvf.supabase.co/storage/v1/object/public/images";
-const videoCDNURL =
-  "https://jofthzzekjrhlnjcpyvf.supabase.co/storage/v1/object/public/videos"; //for accessing these files
+const imageCDNURL = `${CDNURL}/images`;
+const videoCDNURL = `${CDNURL}/videos`;
 
-// https://opmslesqmfxeqznbemew.supabase.co/storage/v1/object/public/videos/testfile.mp4
+// CDNURL/videos/testfile.mp4 //for accessing these files
 
 function App() {
   async function uploadFile(e) {
@@ -38,9 +36,10 @@ function App() {
       console.log("Unsupported file type");
       return;
     }
-    const { error } = await supabase.storage
+    const filename = uuidv4() + extension;
+    const { error, data } = await supabase.storage
       .from(bucketName)
-      .upload(uuidv4() + extension, file, {
+      .upload(filename, file, {
         contentType: contentType,
       });
     if (error) {
@@ -48,6 +47,23 @@ function App() {
       alert("Error uploading file to Supabase");
     } else {
       alert("File uploaded successfully");
+
+      if (bucketName === "images") {
+        const urlImage = `${CDNURL}/${bucketName}/${filename}`; //URL OF IMAGE
+        console.log("URL for Image:", urlImage);
+      } else if (bucketName === "videos") {
+        const urlVideo = `${CDNURL}/${bucketName}/${filename}`; //URL OF VIDEO
+        console.log("URL for Video:", urlVideo);
+      } else {
+        console.log("Unsupported file type");
+        return;
+      }
+
+      // const filename = uuidv4() + extension;
+      // console.log("Filename:", filename);
+      // const url = `${CDNURL}/${bucketName}/${filename}`;
+      // console.log("URL:", url);  //VARIABLE STORING THE URL OF FILE
+      // console.log(`Filename: ${filename}`);
     }
   }
 
